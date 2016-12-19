@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>アークザラッド 行動順出力ツール</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="https://jp.vuejs.org/js/vue.js"></script>
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <script type="text/x-template" id="map-list">
+      <select class="form-control" v-model="selected" v-on:change="setMapUnit">
+        <option v-for="map in mapList" :value="map.id">{{ map.name }}</option>
+      </select>
+    </script>
+    <script type="text/x-template" id="unit-list">
+      <select class="form-control" v-model="id">
+        <option v-for="unit in unitParam" :value="unit.id">{{ unit.name }}</option>
+      </select>
+    </script>
+    <script type="text/x-template" id="lv-list">
+      <select class="form-control" v-model="unitLv">
+        <option v-for="n in 60" v-bind:value="n + 1">{{n + 1}}</option>
+      </select>
+    </script>
+    <script type="text/x-template" id="paro-list">
+      <select class="form-control" v-model="paro">
+        <option v-for="n in 13" v-bind:value="n">{{n}}</option>
+      </select>
+    </script>
+    <script type="text/x-template" id="acs-list">
+      <select class="form-control" v-model="acs">
+        <option v-for="a in acsList" :value="a.id">{{ a.name }}</option>
+      </select>
+    </script>
+    <script type="text/x-template" id="speedup">
+      <input type="checkbox" v-model="speedup">
+    </script>
+    <script type="text/x-template" id="lv-list">
+      <select class="form-control" name="lv">
+        <option v-for="n in 60" value="{{n + 1}}">{{n + 1}}</option>
+      </select>
+    </script>
+    <div class="container">
+      <div class="page-header">
+    		<h1>アークザラッド 行動順出力ツール</h1>
+    	</div>
+
+      <div class="row" id="app">
+        <div class="col-md-9 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">各種設定</div>
+            <div class="panel-body">
+              <div>
+                <div class="form-group">
+                  <button type="button" class="btn btn-default" @click="init">初期化</button>
+                  <button type="button" class="btn btn-primary" @click="add">+</button>
+                  <button type="button" class="btn btn-info" @click="action">次のユニットの行動出力</button>
+                  <button type="button" class="btn btn-success" @click="loopAction(10)">10回行動出力</button>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <div class="input-group-addon">マップ</div>
+                    <map :map-list="mapList"></map>
+                  </div>
+                </div>
+                <table class="table table-bordered">
+                  <thead>
+                    <th class="active">ユニット</th>
+                    <th class="active">Lv</th>
+                    <th class="active">パロの実</th>
+                    <th class="active">アクセサリー</th>
+                    <th class="active">敏捷上昇</th>
+                    <th class="active">現行動値</th>
+                    <th class="active">行動値初期化</th>
+                    <th class="active">削除</th>
+                  </thead>
+                  <tbody>
+                    <tr v-for="u in unitList">
+                      <td><unit :unit-param="unitParam" :id.sync="u.id"></unit></td>
+                      <td><lv :unit-lv.sync="u.lv"></lv></td>
+                      <td><paro :paro.sync="u.paro"></paro></td>
+                      <td><acs :acs-list="accessory" :acs.sync="u.acs"></acs></td>
+                      <td><speedup :speedup.sync="u.speedup"></speedup></td>
+                      <td><span>{{{u.action}}}</span></td>
+                      <td><button type="button" class="btn btn-warning" @click="initActionVal($index)">R</button></td>
+                      <td><button type="button" class="btn btn-danger" @click="remove(u)">X</button></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3 col-xs-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">出力結果</div>
+            <div class="panel-body">
+              {{{outputText}}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+  </body>
+</html>
