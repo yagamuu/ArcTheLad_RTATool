@@ -1,0 +1,27 @@
+{
+  "name": "arc-the-lad-rta-tool",
+  "version": "1.0.0",
+  "description": "アークザラッドRTA用に製作したキャラの行動順を出力する雑ツールです",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "browserify src/main.js -o js/main.js",
+    "watch": "watchify src/main.js -o js/main.js -v"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sisisin-sandbox/ArcTheLad_RTATool.git"
+  },
+  "keywords": [],
+  "author": "yagamuu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sisisin-sandbox/ArcTheLad_RTATool/issues"
+  },
+  "homepage": "https://github.com/sisisin-sandbox/ArcTheLad_RTATool#readme",
+  "dependencies": {
+    "browserify": "^13.1.1",
+    "vue": "1.0",
+    "watchify": "^3.8.0"
+  }
+}
