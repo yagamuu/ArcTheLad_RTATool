@@ -1,0 +1,2 @@
+# ArcTheLad_RTATool
+アーク1RTAのチャート作り用に作った雑ツール
